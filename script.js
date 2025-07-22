@@ -99,7 +99,7 @@ window.addEventListener("DOMContentLoaded", () => {
 				const priorityB = b.getAttribute("data-priority");
 				return priorityOrder[priorityA] - priorityOrder[priorityB];
 			});
-			column.innerHTML = "";
+			cardsInColumn.forEach((card) => card.remove());
 			cardsInColumn.forEach((card) => {
 				column.appendChild(card);
 			});
