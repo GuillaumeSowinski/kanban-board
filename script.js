@@ -6,8 +6,6 @@ window.addEventListener("DOMContentLoaded", () => {
 	const addCardBtn = document.getElementById("addCardBtn");
 	const searchInput = document.getElementById("searchInput");
 	const sortByPriorityBtn = document.getElementById("sortByPriorityBtn");
-	const cards = document.querySelectorAll(".card");
-  const columns = document.querySelectorAll(".column");
 
 
 	// Éventuellement, on écoute les événements
@@ -15,14 +13,25 @@ window.addEventListener("DOMContentLoaded", () => {
 		// ...
 	});
 
-	searchInput.addEventListener("input", () => {
-		// ...
-	});
+  searchInput.addEventListener("input", () => {
+    const searchValue = searchInput.value.toLowerCase();
+    const cards = document.querySelectorAll(".card");
+    cards.forEach((card) => {
+      const cardText = card.textContent.toLowerCase();
+      if (cardText.includes(searchValue)) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  });
 
 	sortByPriorityBtn.addEventListener("click", () => {
 		// ...
 	});
 
+
+  const cards = document.querySelectorAll(".card");
   cards.forEach(card => {
         card.draggable = true;
         card.addEventListener("dragstart", (event) => {
@@ -31,6 +40,7 @@ window.addEventListener("DOMContentLoaded", () => {
         });
 
 
+const columns = document.querySelectorAll(".column");
 columns.forEach(column => {
         column.addEventListener("dragover", (event) => {
             event.preventDefault();
