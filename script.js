@@ -2,10 +2,11 @@ console.log("Kanban JS loaded...");
 
 // Exemple éventuel de structure
 window.addEventListener("DOMContentLoaded", () => {
-  // Ici, on récupère les éléments du DOM
-  const addCardBtn = document.getElementById("addCardBtn");
-  const searchInput = document.getElementById("searchInput");
-  const sortByPriorityBtn = document.getElementById("sortByPriorityBtn");
+	// Ici, on récupère les éléments du DOM
+	const addCardBtn = document.getElementById("addCardBtn");
+	const searchInput = document.getElementById("searchInput");
+	const sortByPriorityBtn = document.getElementById("sortByPriorityBtn");
+
   const cards = document.querySelectorAll('.card');
 
   // Éventuellement, on écoute les événements
@@ -44,8 +45,18 @@ window.addEventListener("DOMContentLoaded", () => {
     <h3>${title}</h3>
     <p>${content}</p>
   `;
-
+const newId = `card-${Date.now()}`;
+    newCard.id = newId;
+    newCard.setAttribute("data-id", newId);
   const todoColumn = document.querySelector('.column[data-status="todo"]');
+  newCard.draggable = true;
+    newCard.addEventListener("dragstart", (event) => {
+        event.dataTransfer.setData('text/plain', newCard.id || newCard.dataset.id);
+        newCard.classList.add('is-dragging');
+    });
+    newCard.addEventListener("dragend", (event) => {
+        event.target.classList.remove('is-dragging');
+    });
   todoColumn.appendChild(newCard);
 });
 
@@ -63,9 +74,9 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  sortByPriorityBtn.addEventListener("click", () => {
-    // ...
-  });
+	sortByPriorityBtn.addEventListener("click", () => {
+		// ...
+	});
 
   cards.forEach(card => {
     const deleteBtn = document.createElement('button');
@@ -79,4 +90,37 @@ window.addEventListener("DOMContentLoaded", () => {
 
     card.append(deleteBtn);
   })
+
+
+  const cards = document.querySelectorAll(".card");
+  cards.forEach(card => {
+        card.draggable = true;
+        card.addEventListener("dragstart", (event) => {
+            event.dataTransfer.setData('text/plain',  card.dataset.id);
+            card.classList.add('is-dragging');
+        });
+
+
+const columns = document.querySelectorAll(".column");
+columns.forEach(column => {
+        column.addEventListener("dragover", (event) => {
+            event.preventDefault();
+            column.classList.add('drag-over');
+        });
+
+        column.addEventListener("dragleave", () => {
+            column.classList.remove('drag-over');
+        });
+
+        column.addEventListener("drop", (event) => {
+            event.preventDefault();
+            column.classList.remove('drag-over');
+            const draggingCardId = event.dataTransfer.getData("text/plain");
+            const draggingCard = document.querySelector(`[data-id="${draggingCardId}"]`);
+            if (draggingCard) column.appendChild(draggingCard);
+        });
+    });
 });
+
+});
+
