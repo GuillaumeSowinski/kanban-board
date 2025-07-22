@@ -44,8 +44,18 @@ window.addEventListener("DOMContentLoaded", () => {
     <h3>${title}</h3>
     <p>${content}</p>
   `;
-
+const newId = `card-${Date.now()}`;
+    newCard.id = newId;
+    newCard.setAttribute("data-id", newId);
   const todoColumn = document.querySelector('.column[data-status="todo"]');
+  newCard.draggable = true;
+    newCard.addEventListener("dragstart", (event) => {
+        event.dataTransfer.setData('text/plain', newCard.id || newCard.dataset.id);
+        newCard.classList.add('is-dragging');
+    });
+    newCard.addEventListener("dragend", (event) => {
+        event.target.classList.remove('is-dragging');
+    });
   todoColumn.appendChild(newCard);
 });
 
