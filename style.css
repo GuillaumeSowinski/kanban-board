@@ -35,7 +35,8 @@ h1 {
   margin: 10px 0;
   padding: 10px;
   border-radius: 3px;
-  cursor: grab; /* Indication pour drag & drop (optionnel) */
+  cursor: grab;
+  /* Indication pour drag & drop (optionnel) */
 }
 
 .toolbar {
@@ -59,3 +60,22 @@ h1 {
   font-size: 10px;
   cursor: pointer;
 }
+.card[data-priority="high"] {
+  border-left: 5px solid red;
+  background-color: #ffe5e5;
+}
+
+.card[data-priority="medium"] {
+  border-left: 5px solid orange;
+  background-color: #fff5e5;
+}
+
+
+.card[data-priority="low"] {
+  border-left: 5px solid green;
+  background-color: #e5ffe5;
+}
+
+
+
+
