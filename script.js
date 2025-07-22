@@ -92,7 +92,6 @@ const newId = `card-${Date.now()}`;
   })
 
 
-  const cards = document.querySelectorAll(".card");
   cards.forEach(card => {
         card.draggable = true;
         card.addEventListener("dragstart", (event) => {
